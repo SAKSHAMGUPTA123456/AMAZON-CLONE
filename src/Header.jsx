@@ -81,23 +81,24 @@ export const Header=()=>{
   
 <br></br>
 
-      <div className="w-full overflow-hidden">
+<div className="w-full overflow-hidden">
       <motion.div
         className="flex space-x-4"
         drag="x"
-        dragConstraints={{ left: -300, right: 0 }}
+        dragConstraints={{ left: -650 * (image.length - 1), right: 0 }}
       >
         {image.map((src, index) => (
           <motion.img
             key={index}
             src={src}
-            style={{width:"650px"}}
-            className=" h-48 rounded-lg shadow-lg"
+            style={{ width: "650px" }}
+            className="h-48 rounded-lg shadow-lg"
             whileHover={{ scale: 1.1 }}
           />
         ))}
       </motion.div>
     </div>
+    
 
 
       </>
