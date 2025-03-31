@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { First } from './Firstpage';
 import { Main } from './Mainpage';
 import { children } from 'react';
 import { Sell } from './Sell';
 export const Setup = () => {
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/",
       element: <First />,
