@@ -3,11 +3,20 @@ import k from './assest/download.png'
 import icon from './assest/download (2).png'
 import { useState } from "react"
 import { motion } from "framer-motion"
+import admin from './assest/admin.jpg'
+import Grocery from './assest/grocery.png'
+import Search from './assest/search icon.png'
+import first from './assest/firstimage.jpg'
+import second from  "./assest/secondimage.jpg"
+import third from './assest/third.jpg'
+import fourth from './assest/fourth.jpg'
+import fifth from './assest/fifth.jpg'
 export const Header=()=>{
     const [iconclick,newiconclick]=useState(false)
     const handleclick=()=>{
         newiconclick(!iconclick)
     }
+    const image=[first,second,third,fourth,fifth]
     return(
       <>
   <motion.div
@@ -38,17 +47,58 @@ export const Header=()=>{
       ))}
    </div>
     <div onClick={()=>handleclick()}>
-        <h1 style={{border:"2px solid blue"}}>X</h1>
+        <h1 style={{border:"2px solid blue",fontSize:"40px"}}>X</h1>
       </div>
       </div>
       </motion.div>
       <div style={{backgroundColor:"#232f3e"}}>
       <div class="flex justify-between">
+        <div class="flex">
        <div onClick={()=>handleclick()}><img src={icon} style={{width:"30px"}} class="mt-3" ></img></div>
-      <div class="mt-3"><img  src={k} style={{width:"120px"}} class=""></img></div>
-    
+       <div class="mt-3 ml-2"><img  src={k} style={{width:"120px"}} class=""></img></div>
+       </div>
+       <div></div>
+       <div></div>
+       <div></div>
+       <div></div>
+       <div></div>
+       <div class="flex mt-4">    
+       <div style={{color:"white"}}>Sign in</div>
+        <div><img src={admin} style={{width:"30px"}} class="ml-2"></img></div>
+       </div>
+       <div>
+        <div class="ml-3"><h3 style={{color:"orange"}}>0</h3></div>
+        <div class="mb-5"><img src={Grocery} style={{width:"30px"}}></img></div>
+       </div>
+      </div>
+
+
+      <div class="flex">
+        <div class="ml-4"><input type="text" placeholder="Search Amazon.in" style={{width:"350px",height:"50px",borderRadius:"7px"}}></input></div>
+      <div class="mr-3"><img src={Search} style={{width:"40px",height:"50px"}}></img></div>
       </div>
       </div>
+  
+<br></br>
+
+      <div className="w-full overflow-hidden">
+      <motion.div
+        className="flex space-x-4"
+        drag="x"
+        dragConstraints={{ left: -300, right: 0 }}
+      >
+        {image.map((src, index) => (
+          <motion.img
+            key={index}
+            src={src}
+            style={{width:"650px"}}
+            className=" h-48 rounded-lg shadow-lg"
+            whileHover={{ scale: 1.1 }}
+          />
+        ))}
+      </motion.div>
+    </div>
+
 
       </>
     )
