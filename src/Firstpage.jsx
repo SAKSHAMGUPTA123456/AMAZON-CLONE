@@ -1,10 +1,24 @@
 import k from './assest/images.png'
 import { NavLink } from 'react-router-dom'
-
+import Loading from 'react-loading-components';
 import fg from './assest/images.jpg'
 import {motion} from 'framer-motion'
 import fgg from './assest/download.jpg'
+import { useEffect, useState } from 'react'
 export const First=()=>{
+    const [newloading,oldloading]=useState(false);
+    useEffect(()=>{
+setTimeout(()=>{
+oldloading(true)
+},1000)
+    },[])
+    if(!newloading){
+        return(
+            <div class="flex justify-center mt-40">
+            <Loading type='spinning_circles' width={100} height={100} fill='#f44242' />
+            </div>
+        )
+    }
     return(
         <>
       
