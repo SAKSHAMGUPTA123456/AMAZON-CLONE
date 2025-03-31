@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import k from './assest/download.png'
 import icon from './assest/download (2).png'
-import { useState } from "react"
+import { useState,useEffect ,useRef} from "react"
 import { motion } from "framer-motion"
 import admin from './assest/admin.jpg'
 import Grocery from './assest/grocery.png'
@@ -17,6 +17,22 @@ export const Header=()=>{
         newiconclick(!iconclick)
     }
     const image=[first,second,third,fourth,fifth]
+    
+
+ 
+    const sliderRef = useRef(null);
+  const containerRef = useRef(null);
+  const [maxDrag, setMaxDrag] = useState(0);
+
+  useEffect(() => {
+    if (sliderRef.current && containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth; // Visible area
+      const sliderWidth = sliderRef.current.scrollWidth; // Total width of all images
+
+      setMaxDrag(containerWidth - sliderWidth); // Ensure it stops at the last image
+    }
+  }, []);
+    
     return(
       <>
   <motion.div
@@ -81,11 +97,12 @@ export const Header=()=>{
   
 <br></br>
 
-<div className="w-full overflow-hidden">
+<div ref={containerRef} className="w-full overflow-hidden">
       <motion.div
+        ref={sliderRef}
         className="flex space-x-4"
         drag="x"
-        dragConstraints={{ left: -650 * (image.length - 1), right: 0 }}
+        dragConstraints={{ left: maxDrag, right: 0 }} // Stop at the last image
       >
         {image.map((src, index) => (
           <motion.img
@@ -98,8 +115,6 @@ export const Header=()=>{
         ))}
       </motion.div>
     </div>
-    
-
 
       </>
     )
