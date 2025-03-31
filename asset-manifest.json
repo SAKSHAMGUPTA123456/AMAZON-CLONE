@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/AMAZON-CLONE/static/css/main.2702cf32.css",
-    "main.js": "/AMAZON-CLONE/static/js/main.a16eb589.js",
+    "main.css": "/AMAZON-CLONE/static/css/main.51d3935d.css",
+    "main.js": "/AMAZON-CLONE/static/js/main.6a085ba5.js",
     "static/js/453.7ff48a86.chunk.js": "/AMAZON-CLONE/static/js/453.7ff48a86.chunk.js",
     "static/media/firstimage.jpg": "/AMAZON-CLONE/static/media/firstimage.dafd910dac5ee0d12034.jpg",
     "static/media/fourth.jpg": "/AMAZON-CLONE/static/media/fourth.68998a44df15f5c02bd8.jpg",
@@ -9,12 +9,12 @@
     "static/media/images.jpg": "/AMAZON-CLONE/static/media/images.49e623fd552c21d4a624.jpg",
     "static/media/logo.svg": "/AMAZON-CLONE/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/AMAZON-CLONE/index.html",
-    "main.2702cf32.css.map": "/AMAZON-CLONE/static/css/main.2702cf32.css.map",
-    "main.a16eb589.js.map": "/AMAZON-CLONE/static/js/main.a16eb589.js.map",
+    "main.51d3935d.css.map": "/AMAZON-CLONE/static/css/main.51d3935d.css.map",
+    "main.6a085ba5.js.map": "/AMAZON-CLONE/static/js/main.6a085ba5.js.map",
     "453.7ff48a86.chunk.js.map": "/AMAZON-CLONE/static/js/453.7ff48a86.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2702cf32.css",
-    "static/js/main.a16eb589.js"
+    "static/css/main.51d3935d.css",
+    "static/js/main.6a085ba5.js"
   ]
 }
