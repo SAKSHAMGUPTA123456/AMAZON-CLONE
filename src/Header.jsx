@@ -6,32 +6,14 @@ import { motion } from "framer-motion"
 import admin from './assest/admin.jpg'
 import Grocery from './assest/grocery.png'
 import Search from './assest/search icon.png'
-import first from './assest/firstimage.jpg'
-import second from  "./assest/secondimage.jpg"
-import third from './assest/third.jpg'
-import fourth from './assest/fourth.jpg'
-import fifth from './assest/fifth.jpg'
 export const Header=()=>{
     const [iconclick,newiconclick]=useState(false)
     const handleclick=()=>{
         newiconclick(!iconclick)
     }
-    const image=[first,second,third,fourth,fifth]
     
 
- 
-    const sliderRef = useRef(null);
-  const containerRef = useRef(null);
-  const [maxDrag, setMaxDrag] = useState(0);
 
-  useEffect(() => {
-    if (sliderRef.current && containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth; // Visible area
-      const sliderWidth = sliderRef.current.scrollWidth; // Total width of all images
-
-      setMaxDrag(containerWidth - sliderWidth); // Ensure it stops at the last image
-    }
-  }, []);
     
     return(
       <>
@@ -44,7 +26,7 @@ export const Header=()=>{
     
       <div style={{ backgroundColor: "#232f3e", border: "2px solid white", padding: "10px" }}>
         <div style={{ color: "white" }}>Browse</div>
-        <div style={{ fontSize: "20px", color: "white" }}>Amazon</div>
+    <div style={{ fontSize: "20px", color: "white" }}>Amazon</div>
 </div>
 <div class="flex justify-between">
 <div class="bg-black">
@@ -96,26 +78,6 @@ export const Header=()=>{
       </div>
   
 <br></br>
-
-<div ref={containerRef} className="w-full overflow-hidden">
-      <motion.div
-        ref={sliderRef}
-        className="flex space-x-4"
-        drag="x"
-        dragConstraints={{ left: maxDrag, right: 0 }} // Stop at the last image
-      >
-        {image.map((src, index) => (
-          <motion.img
-            key={index}
-            src={src}
-            style={{ width: "650px" }}
-            className="h-48 rounded-lg shadow-lg"
-            whileHover={{ scale: 1.1 }}
-          />
-        ))}
-      </motion.div>
-    </div>
-
       </>
     )
 }
