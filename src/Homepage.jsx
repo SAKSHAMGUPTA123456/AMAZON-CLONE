@@ -5,7 +5,10 @@ import fourth from './assest/fourth.jpg'
 import fifth from './assest/fifth.jpg'
 import { useState,useEffect ,useRef} from "react"
 import { motion } from "framer-motion"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import { addTask } from './Store'
+import { useDispatch } from 'react-redux'
 export const Home=()=>{
  const image=[
     {src:first,path:"turkeybreast"},
@@ -14,7 +17,6 @@ export const Home=()=>{
     {src:fourth,path:"aa"},
     {src:fifth,path:"xx"}
  ]
-    
 
  
     const sliderRef = useRef(null);
@@ -23,19 +25,22 @@ export const Home=()=>{
 
   useEffect(() => {
     if (sliderRef.current && containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth; // Visible area
-      const sliderWidth = sliderRef.current.scrollWidth; // Total width of all images
+      const containerWidth = containerRef.current.offsetWidth; 
+      const sliderWidth = sliderRef.current.scrollWidth;
 
-      setMaxDrag(containerWidth - sliderWidth); // Ensure it stops at the last image
+      setMaxDrag(containerWidth - sliderWidth); 
     }
   }, []);
     return(
+      <>
+      <br></br>
+      <br></br>
         <div ref={containerRef} className="w-full overflow-hidden">
         <motion.div
           ref={sliderRef}
           className="flex space-x-4"
           drag="x"
-          dragConstraints={{ left: maxDrag, right: 0 }} // Stop at the last image
+          dragConstraints={{ left: maxDrag, right: 0 }} 
         >
           {image.map((item, index) => (
             <NavLink to={`${item.path}`}  className=" flex-shrink-0">
@@ -51,7 +56,7 @@ export const Home=()=>{
        
         </motion.div>
       </div>
-
+</>
 
     )
 }
