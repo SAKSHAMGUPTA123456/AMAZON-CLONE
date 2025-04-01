@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import k from "./assest/download.png";
@@ -6,12 +6,14 @@ import icon from "./assest/download (2).png";
 import admin from "./assest/admin.jpg";
 import Grocery from "./assest/grocery.png";
 import Search from "./assest/search icon.png";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask } from "./Store";
 
 export const Header = ({ setSidebarOpen, sidebarOpen }) => {
   const handleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
+  const gh=useSelector((state)=>state.task.task)
   return (
     <>
       {/* Sidebar */}
@@ -19,11 +21,11 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
         initial={{ x: -350 }}
         animate={{ x: sidebarOpen ? 0 : -350 }}
         transition={{ type: "spring", stiffness: 100 }}
-        className="fixed top-28 left-0 h-full w-[350px] bg-black shadow-lg z-[1000]"
+        className="fixed top-32 left-0 h-full w-[350px] bg-black shadow-lg z-[1000]"
       >
         <div style={{ backgroundColor: "#232f3e", padding: "10px" }}>
-          <div style={{ color: "white" }}>Browse</div>
-          <div style={{ fontSize: "20px", color: "white" }}>Amazon</div>
+          <div style={{ color: "white" ,width:"10px"}}>Browse</div>
+      <div style={{ fontSize: "40px", color: "white" }}>Amazon</div>
         </div>
 
         {/* Sidebar Content */}
@@ -59,7 +61,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
               <img src={icon} className="w-8" alt="Menu" />
             </div>
             <div className="ml-3">
-              <img src={k} className="w-32" alt="Logo" />
+              <NavLink to=""> <img src={k} className="w-32" alt="Logo" /></NavLink>
             </div>
           </div>
 
@@ -67,13 +69,15 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
           <div className="flex items-center space-x-4">
             <div className="text-white">Sign in</div>
             <img src={admin} className="w-8" alt="Admin" />
-            <div className="text-orange-500 text-lg">0</div>
-            <img src={Grocery} className="w-8" alt="Grocery" />
+            <div>            
+              <div className="text-orange-500 text-lg ml-3">{gh.length}</div>
+            <div><img src={Grocery} className="w-8" alt="Grocery" /></div>
+            </div>
           </div>
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center px-4 py-2">
+        <div className="flex items-center h-14">
           <input
             type="text"
             placeholder="Search Amazon.in"

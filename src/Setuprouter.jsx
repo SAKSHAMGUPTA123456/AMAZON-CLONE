@@ -6,11 +6,13 @@ import { Sell } from './Sell';
 import { Turkeybreast } from './turkeybreatsapi';
 import { Turkey } from './Displayturkeybreast';
 import { Home } from './Homepage';
+import { Error } from './Errors';
 export const Setup = () => {
   const router = createHashRouter([
     {
       path: "/",
       element: <First />,
+      errorElement:<Error/>
     },
     {
         path:"/main",

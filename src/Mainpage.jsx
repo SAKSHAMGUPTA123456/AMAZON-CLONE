@@ -6,11 +6,11 @@ export const Main = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="relative">
+ <>
       {/* Pass state to Header */}
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Overlay when sidebar is open */}
+       {/* Overlay when sidebar is open */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-[999]"
@@ -18,10 +18,10 @@ export const Main = () => {
         ></div>
       )}
 
-      {/* Main Content (disabled when sidebar is open) */}
-      <div className={`${sidebarOpen ? "opacity-50 pointer-events-none" : ""} pt-[80px]`}>
+      Main Content (disabled when sidebar is open) 
+      <div className={`${sidebarOpen ? "opacity-50 pointer-events-none" : ""} pt-32`}>
         <Outlet />
       </div>
-    </div>
+    </>
   );
 };
