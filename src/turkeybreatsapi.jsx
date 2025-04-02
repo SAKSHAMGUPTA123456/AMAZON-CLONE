@@ -1,9 +1,11 @@
-import axios from 'axios'
-export const Turkeybreast=async()=>{
-try{
-const res=await axios.get("https://world.openfoodfacts.org/cgi/search.pl?search_terms=turkey+breast&search_simple=1&json=1")
-return res.data.products
-}catch(error){
-    console.log(error)
-}
-}
+import axios from "axios";
+
+export const Turkeybreast = async () => {
+  try {
+    const response = await axios.get("https://fakestoreapi.com/products");
+    return response.data; // Return full product list (usually 20 items)
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+};
