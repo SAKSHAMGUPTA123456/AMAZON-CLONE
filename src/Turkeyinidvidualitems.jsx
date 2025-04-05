@@ -53,7 +53,7 @@ console.log(store)
         <div style={{color:"white",fontSize:"40px"}} class="ml-5">${curr.price}</div>
         <h1 style={{color:"white"}} class="ml-5">EMI FROM $79.No Cost EMI available.</h1>
         <h1 style={{color:"white"}} class="ml-5">Inclusive of all taxes</h1>
-        <button style={{backgroundColor:"orange",borderRadius:"30px",width:"430px",height:"70px"}} onClick={()=>handling(curr)}>Add to cart</button>
+        <div><button style={{backgroundColor:"orange",borderRadius:"30px",height:"70px"}} onClick={()=>handling(curr)} class="w-full">Add to cart</button></div>
         </>
         )
      })}
