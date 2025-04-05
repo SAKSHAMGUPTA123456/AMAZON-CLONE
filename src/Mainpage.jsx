@@ -19,8 +19,8 @@ export const Main = () => {
       )}
 
       Main Content (disabled when sidebar is open) 
-      <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-28 h-[1500px]`} style={{backgroundColor:"#4b4b4b",width:"490px"}}>
-        <Outlet />
+      <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-28 h-[1500px]`}>
+        <Outlet/>
       </div>
     </>
   );
