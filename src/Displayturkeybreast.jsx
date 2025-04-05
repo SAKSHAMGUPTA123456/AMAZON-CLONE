@@ -15,7 +15,9 @@ const [newlocation,oldlocation]=useState(true);
     }
   };
 const handleprev=()=>{
+  if(startIndex>=3){
   setStartIndex((prev)=>prev-itemsPerPage)
+  }
 }
 
   const { data, isLoading, isError } = useQuery({
@@ -36,21 +38,23 @@ console.log(data)
   <img src={Location} style={{width:"30px"}}></img>
   <h2 style={{color:"white"}}>Delivering to Kozhikode 673004-Update location^</h2>
     </div>
-         <div className= {!newlocation?"opacity-50 pointer-events-none":""}style={{backgroundColor:"pink"}}>   {data.slice(startIndex, startIndex + itemsPerPage).map((product) => (
-        <div key={product.id}>
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p>Price: ${product.price}</p>
-          <img src={product.image} alt={product.title} width={100} />
+         <div className= {!newlocation?"opacity-50 pointer-events-none":"grid grid-cols-2 mt-20"}>   {data.slice(startIndex, startIndex + itemsPerPage).map((product) => (
+        <div key={product.id} style={{width:"190px",borderRadius:"20px"}} class="ml-2">
+          <div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} width={100} /></div>
+          <h2 style={{color:"white"}}>{product.title}</h2>
+          <p style={{color:"white"}}>Price: ${product.price}</p>
+          
         </div>
       ))}
-
+</div>
+<div>
       <button onClick={()=>handleprev()}>
         Previous
       </button>
       <button onClick={() =>handleNext()}>
         Next
-      </button></div>
+      </button>
+      </div>
    
 {/* 
    <div class={newlocation?"hidden":"block"}  style={{backgroundColor:"#131921"}}>
