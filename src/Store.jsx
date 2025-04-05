@@ -9,7 +9,14 @@ const taskReducer = createSlice({
   initialState,
   reducers: {
     addTask(state, action) {
-      state.task.push(action.payload);
+      const exisit=state.task.findIndex((curr)=>curr.id==action.payload.id)
+      console.log(exisit)
+      if(exisit>=0){
+        state.task[exisit].quantity+=1
+      }
+      else{
+ state.task.push(action.payload)
+      }
     }
   }
 });

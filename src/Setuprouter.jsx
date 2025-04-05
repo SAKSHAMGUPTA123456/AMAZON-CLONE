@@ -7,6 +7,7 @@ import { Turkeybreast } from './turkeybreatsapi';
 import { Turkey } from './Displayturkeybreast';
 import { Home } from './Homepage';
 import { Error } from './Errors';
+import { Displays } from './Turkeyinidvidualitems';
 export const Setup = () => {
   const router = createHashRouter([
     {
@@ -30,6 +31,10 @@ element:<Sell/>
     path:"turkeybreast",
     element:<Turkey/>,
     loader:Turkeybreast
+   },
+   {
+    path:"turkeybreast/Display/:id",
+    element:<Displays/>,
    }
    ]}
   ])

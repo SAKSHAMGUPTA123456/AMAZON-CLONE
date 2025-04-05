@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Turkeybreast } from "./turkeybreatsapi"; // API function
 import Location from './assest/download (1).png'
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 export const Turkey = () => {
   const [page, setPage] = useState(0);
 const [newlocation,oldlocation]=useState(true);
@@ -25,7 +26,7 @@ const handleprev=()=>{
     queryFn: Turkeybreast, // Fetch full product list once
     staleTime: Infinity, // Data stays cached indefinitely
   });
-console.log(data)
+
   if (isLoading) return <h1>Loading...</h1>;
   if (isError) return <h1>Error fetching data</h1>;
 
@@ -38,22 +39,22 @@ console.log(data)
   <img src={Location} style={{width:"30px"}}></img>
   <h2 style={{color:"white"}}>Delivering to Kozhikode 673004-Update location^</h2>
     </div>
-         <div className= {!newlocation?"opacity-50 pointer-events-none":"grid grid-cols-2 mt-20"}>   {data.slice(startIndex, startIndex + itemsPerPage).map((product) => (
+     <div className= {!newlocation?"opacity-50 pointer-events-none grid grid-cols-2 mt-20":"grid grid-cols-2 mt-20"} style={{height:"450px"}}>   {data.slice(startIndex, startIndex + itemsPerPage).map((product) => (
         <div key={product.id} style={{width:"190px",borderRadius:"20px"}} class="ml-2">
-          <div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} width={100} /></div>
-          <h2 style={{color:"white"}}>{product.title}</h2>
+          <NavLink to={`Display/${product.id}`}><div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} style={{width:"100px",height:"150px"}} /></div></NavLink>
+          <div style={{width:"250px"}}><h2 style={{color:"white"}}>{product.title.slice(0,25)}</h2></div>
           <p style={{color:"white"}}>Price: ${product.price}</p>
           
         </div>
       ))}
 </div>
-<div>
-      <button onClick={()=>handleprev()}>
+<div style={{backgroundColor:"white"}} class="flex justify-center">
+      <div ><button onClick={()=>handleprev()} style={{borderRadius:"10px",backgroundColor:"orange"}}>
         Previous
-      </button>
-      <button onClick={() =>handleNext()}>
+      </button></div>
+      <div class="ml-2"><button onClick={() =>handleNext()} style={{borderRadius:"10px",backgroundColor:"orange"}}>
         Next
-      </button>
+      </button></div>
       </div>
    
 {/* 
