@@ -52,7 +52,7 @@ const handleprev=()=>{
       <div ><button onClick={()=>handleprev()} style={{borderRadius:"10px",backgroundColor:"orange"}}>
         Previous
       </button></div>
-      <div class="ml-2"><button onClick={() =>handleNext()} style={{borderRadius:"10px",backgroundColor:"orange"}}>
+      <div class="ml-2"><button onClick={() =>handleNext()} style={{borderRadius:"10px",backgroundColor:"orange",width:"50px"}}>
         Next
       </button></div>
       </div>

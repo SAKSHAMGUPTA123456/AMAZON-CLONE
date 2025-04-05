@@ -17,6 +17,18 @@ const taskReducer = createSlice({
       else{
  state.task.push(action.payload)
       }
+    },
+    decreaseTask(state,action){
+      const exisit=state.task.findIndex((curr)=>curr.id==action.payload.id)
+      console.log(exisit)
+      if(exisit>=0){
+        if(state.task[exisit].quantity>0){
+        state.task[exisit].quantity-=1
+        }
+      }
+    },
+    deleteitem(state,action){
+state.task=state.task.filter((curr)=>curr.id!=action.payload.id)
     }
   }
 });
@@ -28,4 +40,4 @@ export const store = configureStore({
 });
 
 
-export const { addTask } = taskReducer.actions;
+export const { addTask ,decreaseTask,deleteitem} = taskReducer.actions;
