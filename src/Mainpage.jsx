@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Header } from "./Header";
 import { Outlet } from "react-router-dom";
-
+import { Footer } from "./Footer";
 export const Main = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -22,6 +22,7 @@ export const Main = () => {
       <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-28 h-[1500px]  overflow-hidden w-full`} style={{backgroundColor:"#1C1C1C"}}>
         <Outlet/>
       </div>
+      <Footer/>
     </>
   );
 };

@@ -27,7 +27,7 @@ const handleprev=()=>{
     staleTime: Infinity, // Data stays cached indefinitely
   });
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <h1 style={{color:"white"}}>Loading...</h1>;
   if (isError) return <h1>Error fetching data</h1>;
 
 

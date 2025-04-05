@@ -24,7 +24,9 @@ const Dispatch=useDispatch()
           image: curr.image,
           price: curr.price,
           quantity: 1,
-          id: curr.id
+          id: curr.id,
+          details:curr.description,
+
         };
         Dispatch(addTask(gy));
       

@@ -71,7 +71,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
             <img src={admin} className="w-8" alt="Admin" />
             <div>            
               <div className="text-orange-500 text-lg ml-3">{gh.length}</div>
-            <div><img src={Grocery} className="w-8" alt="Grocery" /></div>
+            <NavLink to="Cart"><div><img src={Grocery} className="w-8" alt="Grocery" /></div></NavLink>
             </div>
           </div>
         </div>

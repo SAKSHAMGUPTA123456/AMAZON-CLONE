@@ -8,6 +8,7 @@ import { Turkey } from './Displayturkeybreast';
 import { Home } from './Homepage';
 import { Error } from './Errors';
 import { Displays } from './Turkeyinidvidualitems';
+import { Cart } from './Cart';
 export const Setup = () => {
   const router = createHashRouter([
     {
@@ -35,6 +36,10 @@ element:<Sell/>
    {
     path:"turkeybreast/Display/:id",
     element:<Displays/>,
+   },
+   {
+    path:"Cart",
+    element:<Cart/>
    }
    ]}
   ])
