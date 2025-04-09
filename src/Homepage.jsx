@@ -1,4 +1,4 @@
-import first from './assest/firstimage.jpg'
+import first from './assest/images (1).jpg'
 import second from  "./assest/secondimage.jpg"
 import third from './assest/third.jpg'
 import fourth from './assest/fourth.jpg'
