@@ -5,7 +5,9 @@ import { decreaseTask } from "./Store"
 import { deleteitem } from "./Store"
 import { useState } from "react"
 export const Cart=()=>{
-    const fg=useSelector((prev)=>prev.task.task)||JSON.parse(localStorage.getItem('cart'))
+  const cartFromRedux = useSelector((prev) => prev.task.task);
+  const cartFromLocal = JSON.parse(localStorage.getItem('cart') || "[]");
+  const fg = cartFromRedux.length ? cartFromRedux : cartFromLocal;
    
     const Dispatch=useDispatch()
     const incre=(curr)=>{
