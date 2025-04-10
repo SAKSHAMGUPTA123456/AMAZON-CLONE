@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Turkeybreast } from "./turkeybreatsapi"; // API function
 import Location from './assest/download (1).png'
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 export const Turkey = () => {
+  const navigate=useNavigate()
   const [page, setPage] = useState(0);
 const [newlocation,oldlocation]=useState(true);
   const [startIndex, setStartIndex] = useState(0);
@@ -34,12 +35,13 @@ const handleprev=()=>{
 
   return (
     <>
-   
   <div style={{backgroundColor:"#232f3e"}} class="flex" onClick={()=>oldlocation(!newlocation)}>
   <img src={Location} style={{width:"30px"}}></img>
   <h2 style={{color:"white"}}>Delivering to Kozhikode 673004-Update location^</h2>
     </div>
-     <div className= {!newlocation?"opacity-50 pointer-events-none grid grid-cols-2 mt-20":"grid grid-cols-2 mt-20"} style={{height:"450px"}}>   {data.slice(startIndex, startIndex + itemsPerPage).map((product) => (
+    <div class="mt-5"><button style={{color:"white",backgroundColor:"orange",borderRadius:"20px"}} onClick={()=>navigate(-1)}>Go to previous page</button></div>
+
+     <div className= {!newlocation?"opacity-50 pointer-events-none grid grid-cols-2 mt-20":"grid grid-cols-2 mt-16"} style={{height:"450px"}}>   {data.slice(startIndex, startIndex + itemsPerPage).map((product) => (
         <div key={product.id} style={{width:"190px",borderRadius:"20px"}} class="ml-2">
           <NavLink to={`Display/${product.id}`}><div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} style={{width:"100px",height:"150px"}} /></div></NavLink>
           <div style={{width:"250px"}}><h2 style={{color:"white"}}>{product.title.slice(0,25)}</h2></div>

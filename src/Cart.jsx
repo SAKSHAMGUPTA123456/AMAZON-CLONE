@@ -3,15 +3,41 @@ import { NavLink } from "react-router-dom"
 import { addTask } from "./Store"
 import { decreaseTask } from "./Store"
 import { deleteitem } from "./Store"
+import { useState } from "react"
 export const Cart=()=>{
-    const fg=useSelector((prev)=>prev.task.task)
-    console.log(fg)
+    const fg=useSelector((prev)=>prev.task.task)||JSON.parse(localStorage.getItem('cart'))
+   
     const Dispatch=useDispatch()
     const incre=(curr)=>{
-      Dispatch(addTask(curr))
+      const er={
+        actualprice:curr.actualprice,
+        details:curr.details,
+id:curr.id,
+image:curr.image,
+price:curr.actualprice+curr.price,
+quantity:curr.quantity+1
+      }
+      console.log(er)
+      Dispatch(addTask(er))
     }
     const dec=(curr)=>{
-Dispatch(decreaseTask(curr))
+      if(curr.quantity>=2){
+      const er={
+        actualprice:curr.actualprice,
+        details:curr.details,
+id:curr.id,
+image:curr.image,
+price:curr.price-curr.actualprice,
+quantity:curr.quantity-1
+      }
+Dispatch(decreaseTask(er))
+    }
+    if(curr.quantity==1){
+      const er={
+        id:curr.id
+      }
+      Dispatch(deleteitem(er))
+    }
     }
     const handledel=(curr)=>{
 Dispatch(deleteitem(curr))
@@ -29,7 +55,7 @@ Dispatch(deleteitem(curr))
                 <div style={{color:"white",width:"250px",wordBreak:"break-word",fontStyle:"italic"}}>
   {curr.details.slice(0,65)}.....
 </div>
-<div style={{color:"white",fontSize:"30px"}}>${curr.price *curr.quantity }</div>
+<div style={{color:"white",fontSize:"30px"}}>${curr.price}</div>
 <div style={{color:"lightgreen"}}>In Stock</div>
 </div>
 </div></NavLink>
