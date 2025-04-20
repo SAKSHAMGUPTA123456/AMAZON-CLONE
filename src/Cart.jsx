@@ -77,7 +77,7 @@ Dispatch(decreaseTask(er))
     <div style={{color:"black",fontSize:"25px"}} onClick={()=>incre(curr)}>+</div>
 </button>
 <button class="flex justify-center mt-3 ml-3" style={{border:"4px solid orange",width:"150px",borderRadius:"20px", backdropFilter: 'blur(10px)', backgroundColor: 'rgba(255, 255, 255, 0.1)',color:"white"}} onClick={()=>handledel(curr)}>
-<div class="mt-2">DELETE</div>
+<div class="mt-2" onClick={handledel}>DELETE</div>
 </button>
 </div>
 </>
