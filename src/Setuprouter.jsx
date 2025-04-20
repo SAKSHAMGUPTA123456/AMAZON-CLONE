@@ -9,6 +9,8 @@ import { Home } from './Homepage';
 import { Error } from './Errors';
 import { Displays } from './Turkeyinidvidualitems';
 import { Cart } from './Cart';
+import { Homes } from './HomeDisplay';
+import { HomeItems } from './HomeProductsapi';
 export const Setup = () => {
   const router = createHashRouter([
     {
@@ -40,6 +42,11 @@ element:<Sell/>
    {
     path:"Cart",
     element:<Cart/>
+   },
+   {
+    path:"display/:id",
+    element:<Homes/>,
+    loader:HomeItems
    }
    ]}
   ])

@@ -9,6 +9,8 @@ import { NavLink, useSearchParams } from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import { addTask } from './Store'
 import { useDispatch } from 'react-redux'
+import { useQuery } from '@tanstack/react-query'
+import { HomeItems } from './HomeProductsapi'
 export const Home=()=>{
  const image=[
     {src:first,path:"turkeybreast"},
@@ -18,7 +20,12 @@ export const Home=()=>{
     {src:fifth,path:"xx"}
  ]
 
- 
+const {data}=useQuery({
+  queryKey:["Homeitems"],
+  queryFn:HomeItems,
+  staleTime:Infinity
+}) 
+console.log(data)
     const sliderRef = useRef(null);
   const containerRef = useRef(null);
   const [maxDrag, setMaxDrag] = useState(0);
@@ -55,6 +62,22 @@ export const Home=()=>{
           ))}
        
         </motion.div>
+<div class="mt-5">
+     <div class="grid grid-cols-2 ">
+      {data?.map((product)=>{
+        return(
+          <div key={product.id} style={{width:"190px",borderRadius:"20px"}} class="ml-2">
+         <NavLink to={`display/${product.id}`}> <div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} style={{width:"100px",height:"150px"}} /></div></NavLink>
+          <div style={{width:"250px"}}><h2 style={{color:"white"}}>{product.title.slice(0,25)}</h2></div>
+          <p style={{color:"white"}}>Price: ${product.price}</p>
+          
+        </div>
+        )
+      })}
+     </div>
+     </div>
+
+
       </div>
 </>
 
