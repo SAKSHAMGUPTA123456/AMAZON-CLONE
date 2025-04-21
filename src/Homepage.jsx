@@ -93,7 +93,7 @@ oldsearch("")
        
         </motion.div>
 
-<div class="flex justify-center">
+<div class="flex justify-center overflow-visible">
 <select onChange={(e)=>handlingfil(e)} style={{backgroundColor:"black",color:"white",border:"2px solid white"}}>
   <div style={{color:"white"}}>
   <option></option>
