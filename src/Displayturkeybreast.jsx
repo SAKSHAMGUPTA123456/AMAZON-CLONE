@@ -35,7 +35,7 @@ const handleprev=()=>{
 
   return (
     <>
-  <div style={{backgroundColor:"#232f3e"}} class="flex" onClick={()=>oldlocation(!newlocation)}>
+  <div style={{backgroundColor:"#232f3e"}} class="flex mt-4" onClick={()=>oldlocation(!newlocation)}>
   <img src={Location} style={{width:"30px"}}></img>
   <h2 style={{color:"white"}}>Delivering to Kozhikode 673004-Update location^</h2>
     </div>
