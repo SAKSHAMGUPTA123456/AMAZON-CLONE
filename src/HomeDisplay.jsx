@@ -50,6 +50,7 @@ setTimeout(() => {
  {rts?.map((data)=>{
   return(
     <div>
+      <div><br></br></div>
                  <div><button style={{color:"white",backgroundColor:"orange",borderRadius:"20px"}} onClick={()=>navigate(-1)}>Go to previous page</button></div>
 
    <h2 style={{color:"white"}} class="mt-4">{data.description}</h2>
