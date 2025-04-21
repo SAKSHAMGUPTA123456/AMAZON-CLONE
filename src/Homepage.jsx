@@ -19,14 +19,11 @@ const {data,isLoading}=useQuery({
   queryFn:HomeItems,
   staleTime:Infinity
 }) 
-const [newload,oldload]=useState(true)
 const [newmap,oldmap]=useState([])
 useEffect(()=>{
-  setTimeout(() => {
-    oldload(false)
-  }, 2000);
 oldmap(data)
-},[])
+},[data])
+
   const [newsearch,oldsearch]=useState("")
  const image=[
     {src:first,path:"turkeybreast"},
@@ -110,20 +107,30 @@ oldsearch("")
 
 </select>
 </div>
-{!newload?<div class="mt-5">
-     <div class="grid grid-cols-2 ">
-      {newmap?.map((product)=>{
-        return(
-          <div key={product.id} style={{width:"190px",borderRadius:"20px"}} class="ml-2">
-         <NavLink to={`display/${product.id}`}> <div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} style={{width:"100px",height:"150px"}} /></div></NavLink>
-          <div style={{width:"250px"}}><h2 style={{color:"white"}}>{product.title.slice(0,25)}</h2></div>
-          <p style={{color:"white"}}>Price: ${product.price}</p>
-          
+     {isLoading ? (
+  <div className="flex justify-center mt-10">
+    <h1 className="text-white text-xl font-bold animate-pulse">LOADING...</h1>
+  </div>
+) : (
+  <div className="mt-5">
+    <div className="grid grid-cols-2 gap-4">
+      {newmap?.map((product) => (
+        <div key={product.id} style={{ width: "190px", borderRadius: "20px" }} className="ml-2">
+          <NavLink to={`display/${product.id}`}>
+            <div style={{ border: "2px solid white", backgroundColor: "white" }} className="flex justify-center">
+              <img src={product.image} alt={product.title} style={{ width: "100px", height: "150px" }} />
+            </div>
+          </NavLink>
+          <div style={{ width: "250px" }}>
+            <h2 style={{ color: "white" }}>{product.title.slice(0, 25)}</h2>
+          </div>
+          <p style={{ color: "white" }}>Price: ${product.price}</p>
         </div>
-        )
-      })}
-     </div>
-     </div>:""}
+      ))}
+    </div>
+  </div>
+)}
+
 
 
 
