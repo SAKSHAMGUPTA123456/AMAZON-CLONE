@@ -14,13 +14,17 @@ import { HomeItems } from './HomeProductsapi'
 import Search from "./assest/search icon.png";
 export const Home=()=>{
   
-const {data}=useQuery({
+const {data,isLoading}=useQuery({
   queryKey:["Homeitems"],
   queryFn:HomeItems,
   staleTime:Infinity
 }) 
+const [newload,oldload]=useState(true)
 const [newmap,oldmap]=useState([])
 useEffect(()=>{
+  setTimeout(() => {
+    oldload(false)
+  }, 2000);
 oldmap(data)
 },[])
   const [newsearch,oldsearch]=useState("")
@@ -59,6 +63,7 @@ oldsearch("")
    const g=data.filter((curr)=>curr.category.toLowerCase().includes(e.target.value.toLowerCase()))
    oldmap(g)
   }
+
     return(
       <>
           <div className="flex items-center h-14">
@@ -95,18 +100,17 @@ oldsearch("")
 
 <div class="flex justify-center overflow-visible">
 <select onChange={(e)=>handlingfil(e)} style={{backgroundColor:"black",color:"white",border:"2px solid white"}}>
-  <div style={{color:"white"}}>
+
   <option></option>
-  <option>ELECTRONICS</option>
-  <option>MOBILE</option>
-  <option>GAMING</option>
-  <option>AUDIO</option>
-  <option>TV</option>
-  </div>
+  <option style={{color:"white"}}>ELECTRONICS</option>
+  <option style={{color:"white"}}>MOBILE</option>
+  <option style={{color:"white"}}>GAMING</option>
+  <option style={{color:"white"}}>AUDIO</option>
+  <option style={{color:"white"}}>TV</option>
+
 </select>
 </div>
-
-<div class="mt-5">
+{!newload?<div class="mt-5">
      <div class="grid grid-cols-2 ">
       {newmap?.map((product)=>{
         return(
@@ -119,7 +123,8 @@ oldsearch("")
         )
       })}
      </div>
-     </div>
+     </div>:""}
+
 
 
       </div>

@@ -11,6 +11,7 @@ import { Displays } from './Turkeyinidvidualitems';
 import { Cart } from './Cart';
 import { Homes } from './HomeDisplay';
 import { HomeItems } from './HomeProductsapi';
+import { Saver } from './Amazonsaver';
 export const Setup = () => {
   const router = createHashRouter([
     {
@@ -47,6 +48,10 @@ element:<Sell/>
     path:"display/:id",
     element:<Homes/>,
     loader:HomeItems
+   },
+   {
+    path:"gh",
+    element:<Saver/>
    }
    ]}
   ])
