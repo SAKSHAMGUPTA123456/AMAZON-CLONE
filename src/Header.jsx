@@ -77,14 +77,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center h-14">
-          <input
-            type="text"
-            placeholder="Search Amazon.in"
-            className="w-80 h-10 rounded-md px-3"
-          />
-          <img src={Search} className="w-10 h-10 ml-2 cursor-pointer" alt="Search" />
-        </div>
+    
       </div>
 
     </>

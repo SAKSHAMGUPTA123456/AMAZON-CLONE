@@ -22,7 +22,7 @@ export const Main = () => {
       )}
 
       Main Content (disabled when sidebar is open) 
-      <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-28 h-[1500px]  overflow-hidden w-full`} style={{backgroundColor:"#1C1C1C", height: isHome ? "6000px" : "1500px",}}>
+      <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-16 h-[1500px]  overflow-hidden w-full`} style={{backgroundColor:"#1C1C1C", height: isHome ? "6000px" : "1500px",}}>
         <Outlet/>  
       </div>
       <Footer/>

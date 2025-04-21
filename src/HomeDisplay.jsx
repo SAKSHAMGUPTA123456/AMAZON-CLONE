@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from "react-router-dom"
+import { useLoaderData, useNavigate, useParams } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import { motion } from "framer-motion"
@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux"
 import { addTask } from "./Store"
 export const Homes=()=>{
     const rtt=useParams()
+    let navigate=useNavigate()
     const fg=useLoaderData()
     const rts=fg.filter((curr)=>curr.id==rtt.id)
     const [newpop,oldpop]=useState(true)
@@ -49,6 +50,8 @@ setTimeout(() => {
  {rts?.map((data)=>{
   return(
     <div>
+                 <div><button style={{color:"white",backgroundColor:"orange",borderRadius:"20px"}} onClick={()=>navigate(-1)}>Go to previous page</button></div>
+
    <h2 style={{color:"white"}} class="mt-4">{data.description}</h2>
         <div class="flex justify-center mt-5"><img src={data.image} style={{width:"350px"}}></img></div>
         <div style={{color:"white",fontSize:"40px"}} class="ml-5">${data.price}</div>

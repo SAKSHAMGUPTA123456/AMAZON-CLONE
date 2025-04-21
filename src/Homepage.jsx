@@ -11,7 +11,19 @@ import { addTask } from './Store'
 import { useDispatch } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 import { HomeItems } from './HomeProductsapi'
+import Search from "./assest/search icon.png";
 export const Home=()=>{
+  
+const {data}=useQuery({
+  queryKey:["Homeitems"],
+  queryFn:HomeItems,
+  staleTime:Infinity
+}) 
+const [newmap,oldmap]=useState([])
+useEffect(()=>{
+oldmap(data)
+},[])
+  const [newsearch,oldsearch]=useState("")
  const image=[
     {src:first,path:"turkeybreast"},
     {src:second,path:"gh"},
@@ -20,12 +32,8 @@ export const Home=()=>{
     {src:fifth,path:"xx"}
  ]
 
-const {data}=useQuery({
-  queryKey:["Homeitems"],
-  queryFn:HomeItems,
-  staleTime:Infinity
-}) 
-console.log(data)
+
+
     const sliderRef = useRef(null);
   const containerRef = useRef(null);
   const [maxDrag, setMaxDrag] = useState(0);
@@ -38,10 +46,32 @@ console.log(data)
       setMaxDrag(containerWidth - sliderWidth); 
     }
   }, []);
+  const word=(e)=>{
+    console.log(e.target.value)
+    oldsearch(e.target.value)
+    const rh=data.filter((curr)=>curr.title.toLowerCase().includes(e.target.value.toLowerCase()))
+    oldmap(rh)
+  }
+  const handlingsearch=()=>{
+oldsearch("")
+  }
+  const handlingfil=(e)=>{
+   const g=data.filter((curr)=>curr.category.toLowerCase().includes(e.target.value.toLowerCase()))
+   oldmap(g)
+  }
     return(
       <>
-      <br></br>
-      <br></br>
+          <div className="flex items-center h-14">
+                <input
+                  type="text"
+                  placeholder="Search Amazon.in"
+                  className="w-80 h-10 rounded-md px-3"
+                  value={newsearch}
+                  onChange={(e)=>word(e)}
+                />
+                <img src={Search} className="w-10 h-10 ml-2 cursor-pointer" alt="Search"  onClick={handlingsearch}/>
+              </div>
+    
         <div ref={containerRef} className="w-full overflow-hidden">
         <motion.div
           ref={sliderRef}
@@ -62,9 +92,23 @@ console.log(data)
           ))}
        
         </motion.div>
+
+<div class="flex justify-center">
+<select onChange={(e)=>handlingfil(e)} style={{backgroundColor:"black",color:"white",border:"2px solid white"}}>
+  <div style={{color:"white"}}>
+  <option></option>
+  <option>ELECTRONICS</option>
+  <option>MOBILE</option>
+  <option>GAMING</option>
+  <option>AUDIO</option>
+  <option>TV</option>
+  </div>
+</select>
+</div>
+
 <div class="mt-5">
      <div class="grid grid-cols-2 ">
-      {data?.map((product)=>{
+      {newmap?.map((product)=>{
         return(
           <div key={product.id} style={{width:"190px",borderRadius:"20px"}} class="ml-2">
          <NavLink to={`display/${product.id}`}> <div style={{border:"2px solid white",backgroundColor:"white"}} class="flex justify-center">          <img src={product.image} alt={product.title} style={{width:"100px",height:"150px"}} /></div></NavLink>
