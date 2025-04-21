@@ -56,6 +56,7 @@ selectnew(parseInt(event.target.value.slice(9,14)))
 console.log(store)
     return(
      <>
+     <div><br></br></div>
      {rt?.map((curr)=>{
         return(
             <>
