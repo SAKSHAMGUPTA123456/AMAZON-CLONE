@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { Saverapi } from "./Amazonsaverapi"
 import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-export const Saver=()=>{
+export const Third=()=>{
     const navigate=useNavigate()
     const {data}=useQuery({
         queryKey:"saver",

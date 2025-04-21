@@ -12,6 +12,14 @@ import { Cart } from './Cart';
 import { Homes } from './HomeDisplay';
 import { HomeItems } from './HomeProductsapi';
 import { Saver } from './Amazonsaver';
+import { Amazonindi } from './Amazonsaverindi';
+import { Saverapi } from './Amazonsaverapi';
+import { Third } from './Third';
+import { Thirdindi } from './Thirdindi';
+import { Fourth } from './Fourth';
+import { Fourthind } from './Fourthindi';
+import { Fifth } from './Fifth';
+import { Fifthind } from './Fifthindi';
 export const Setup = () => {
   const router = createHashRouter([
     {
@@ -52,7 +60,33 @@ element:<Sell/>
    {
     path:"gh",
     element:<Saver/>
-   }
+   },{
+    path:"gh/:id",
+    element:<Amazonindi/>,
+    loader:Saverapi
+   },{
+    path:"nn",
+    element:<Third/>
+   },{
+    path:"nn/:id",
+    element:<Thirdindi/>,
+    loader:Saverapi
+   },{
+    path:"aa",
+    element:<Fourth/>
+   },{
+path:"aa/:id",
+element:<Fourthind/>,
+loader:Saverapi
+
+},{
+  path:"xx",
+  element:<Fifth/>
+},{
+  path:"xx/:id",
+  element:<Fifthind/>,
+  loader:Saverapi
+}
    ]}
   ])
 

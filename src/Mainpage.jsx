@@ -8,6 +8,10 @@ export const Main = () => {
   const location = useLocation();
 
   const isHome = location.pathname === "/main";
+  const isHomes=location.pathname==="/main/gh";
+  const isHomess=location.pathname==="/main/nn";
+  const isHomesss=location.pathname==='/main/aa'
+  const sd=location.pathname==="/main/xx"
   return (
  <>
       {/* Pass state to Header */}
@@ -22,7 +26,7 @@ export const Main = () => {
       )}
 
       Main Content (disabled when sidebar is open) 
-      <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-16 h-[1500px]  overflow-hidden w-full`} style={{backgroundColor:"#1C1C1C", height: isHome ? "6000px" : "1500px",}}>
+      <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-16 h-[1500px]  overflow-hidden w-full`} style={{backgroundColor:"#1C1C1C", height: isHome||isHomes||isHomess||isHomesss||sd ? "6000px" : "1500px",}}>
         <Outlet/>  
       </div>
       <Footer/>

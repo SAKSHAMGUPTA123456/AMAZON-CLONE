@@ -55,7 +55,7 @@ Dispatch(decreaseTask(er))
   }
     return(
       <>
-
+<div><br></br></div>
       <div class="flex justify-center"><h1 style={{color:"orange",fontSize:"30px"}}>YOUR CART HAS {fg.length} ITEMS</h1></div>
       {fg?.map((curr)=>{
         return(
