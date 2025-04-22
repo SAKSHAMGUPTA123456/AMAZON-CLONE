@@ -13,7 +13,8 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
   const handleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
-  const gh=useSelector((state)=>state.task.task)||localStorage.length
+  const gf=useSelector((state)=>state.task.task)
+  const gh=gf.length||localStorage.length
   return (
     <>
       {/* Sidebar */}
@@ -70,7 +71,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
             <div className="text-white">Sign in</div>
             <img src={admin} className="w-8" alt="Admin" />
             <div>            
-              <div className="text-orange-500 text-lg ml-3">{gh.length}</div>
+              <div className="text-orange-500 text-lg ml-3">{gh}</div>
             <NavLink to="Cart"><div class="mb-4"><img src={Grocery} className="w-8" alt="Grocery" /></div></NavLink>
             </div>
           </div>
