@@ -14,10 +14,8 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
     setSidebarOpen(!sidebarOpen);
   };
   const gf=useSelector((state)=>state.task.task)
-  let gh=gf.length
-  if(localStorage.length!=0){
-    gh=localStorage.length
-  }
+  const fgg=JSON.parse(localStorage.getItem('cart'))
+let gh=fgg.length||gf.length
   return (
     <>
       {/* Sidebar */}

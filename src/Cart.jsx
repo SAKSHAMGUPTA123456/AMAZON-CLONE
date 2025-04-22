@@ -42,7 +42,7 @@ Dispatch(decreaseTask(er))
 
     
     const handledel=(curr)=>{
-      if(curr.quantity>1){
+      if(curr.quantity>=1){
         const er={
           id:curr.id
       
