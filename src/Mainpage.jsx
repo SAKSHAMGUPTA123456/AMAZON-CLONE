@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
 import { useLocation } from "react-router-dom";
+import { Ai } from "./Aisupport";
 export const Main = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -16,7 +17,7 @@ export const Main = () => {
  <>
       {/* Pass state to Header */}
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
+      <Ai/>
        {/* Overlay when sidebar is open */}
       {sidebarOpen && (
         <div
@@ -29,6 +30,7 @@ export const Main = () => {
       <div className={`${sidebarOpen ? " opacity-50 pointer-events-none" : ""} pt-16 h-[1500px]  overflow-hidden w-full`} style={{backgroundColor:"#1C1C1C", height: isHome||isHomes||isHomess||isHomesss||sd ? "6000px" : "1500px",}}>
         <Outlet/>  
       </div>
+   
       <Footer/>
     </>
   );
