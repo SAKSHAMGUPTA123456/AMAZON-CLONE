@@ -14,7 +14,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
     setSidebarOpen(!sidebarOpen);
   };
   const gf=useSelector((state)=>state.task.task)
-  const gh=(localStorage.length-1)||gh.lengthgit 
+  const gh=(localStorage.length-1)||gh.length
   return (
     <>
       {/* Sidebar */}
