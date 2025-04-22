@@ -16,7 +16,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
   const gf=useSelector((state)=>state.task.task)
   let gh=gf.length
   if(localStorage.length!=0){
-    gh=localStorage.length-1
+    gh=localStorage.length
   }
   return (
     <>
