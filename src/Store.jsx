@@ -1,49 +1,49 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
+// Load cart from localStorage if available
+const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
 const initialState = {
-  task: [] // Array to store tasks
+  task: savedCart
 };
-const handlelocal=(cut)=>{
-  localStorage.setItem("cart",JSON.stringify(cut))
-}
-// localStorage.clear()
+
+const handlelocal = (cut) => {
+  localStorage.setItem("cart", JSON.stringify(cut));
+};
+
 const taskReducer = createSlice({
   name: 'task',
   initialState,
   reducers: {
     addTask(state, action) {
-      const exisit=state.task.findIndex((curr)=>curr.id==action.payload.id)
-      console.log(exisit)
-      if(exisit>=0){
-      state.task[exisit].quantity=action.payload.quantity
-      state.task[exisit].price=action.payload.price
+      const exist = state.task.findIndex((curr) => curr.id === action.payload.id);
+      if (exist >= 0) {
+        state.task[exist].quantity = action.payload.quantity;
+        state.task[exist].price = action.payload.price;
+      } else {
+        state.task.push(action.payload);
       }
-              else{
- state.task.push(action.payload)
-      }
-      handlelocal(state.task)
+      handlelocal(state.task);
     },
-    decreaseTask(state,action){
-      const exisit=state.task.findIndex((curr)=>curr.id==action.payload.id)
-      console.log(exisit)
-      if(exisit>=0){
-        state.task[exisit].quantity=action.payload.quantity
-        state.task[exisit].price=action.payload.price
+    decreaseTask(state, action) {
+      const exist = state.task.findIndex((curr) => curr.id === action.payload.id);
+      if (exist >= 0) {
+        state.task[exist].quantity = action.payload.quantity;
+        state.task[exist].price = action.payload.price;
       }
-     handlelocal(state.task)
+      handlelocal(state.task);
     },
-    deleteitem(state,action){
-state.task=state.task.filter((curr)=>curr.id!=action.payload.id)
-handlelocal(state.task)
+    deleteitem(state, action) {
+      state.task = state.task.filter((curr) => curr.id !== action.payload.id);
+      handlelocal(state.task);
     }
   }
 });
 
 export const store = configureStore({
   reducer: {
-    task: taskReducer.reducer 
+    task: taskReducer.reducer
   }
 });
 
-
-export const { addTask ,decreaseTask,deleteitem} = taskReducer.actions;
+export const { addTask, decreaseTask, deleteitem } = taskReducer.actions;
