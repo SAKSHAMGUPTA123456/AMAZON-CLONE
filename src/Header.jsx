@@ -13,7 +13,7 @@ export const Header = ({ setSidebarOpen, sidebarOpen }) => {
   const handleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
-  const gh=useSelector((state)=>state.task.task)
+  const gh=useSelector((state)=>state.task.task)||localStorage.length
   return (
     <>
       {/* Sidebar */}
