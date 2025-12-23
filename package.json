@@ -2,7 +2,7 @@
   "name": "AMAZON",
   "version": "0.1.0",
   "private": true,
-  "homepage": " https://sakshamgupta123456.github.io/AMAZON-CLONE/",
+  "homepage": "",
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
     "@tanstack/react-query": "^5.71.1",
