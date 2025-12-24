@@ -25,7 +25,7 @@ export const Signup = () => {
         alert(data.msg);
       }
     } catch (err) {
-      alert("Server error");
+      alert(err);
     }
   };
 
