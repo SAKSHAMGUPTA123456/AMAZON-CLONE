@@ -19,6 +19,7 @@ import { Fourth } from './Fourth';
 import { Fourthind } from './Fourthindi';
 import { Fifth } from './Fifth';
 import { Fifthind } from './Fifthindi';
+import { Signup } from './signup';
 import SignIn from './Signpage';
 export const Setup = () => {
   const router = createHashRouter([
@@ -30,6 +31,10 @@ export const Setup = () => {
     {
        path:"/signin",
        element:<SignIn/>
+    },
+    {
+      path:"/signup",
+      element:<Signup/>
     },
     {
         path:"/main",

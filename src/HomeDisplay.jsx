@@ -10,18 +10,17 @@ export const Homes = () => {
   const data = useLoaderData();
   const dispatch = useDispatch();
 
-  // ✅ Hooks must be at top
+  /* ---------------- STATE ---------------- */
   const [showPopup, setShowPopup] = useState(false);
   const [qty, setQty] = useState(1);
 
-  // ✅ Safe product lookup
+  /* ---------------- PRODUCT ---------------- */
   const product = data.find((item) => item.id === Number(id));
 
   const [mainImg, setMainImg] = useState(
     product ? product.thumbnail : ""
   );
 
-  // ✅ Product not found fallback
   if (!product) {
     return (
       <div className="bg-[#131921] min-h-screen text-white p-10">
@@ -36,6 +35,7 @@ export const Homes = () => {
     );
   }
 
+  /* ---------------- ADD TO CART ---------------- */
   const addToCart = () => {
     dispatch(
       addTask({
@@ -55,12 +55,12 @@ export const Homes = () => {
   return (
     <div className="bg-[#131921] min-h-screen text-white pb-24">
 
-      {/* ================= TOP AMAZON BAR ================= */}
-      <div className="sticky top-0 z-50 bg-[#131921] border-b border-gray-700">
+      {/* ================= TOP BAR ================= */}
+      <div className="sticky top-0 z-40 bg-[#131921] border-b border-gray-700">
         <div className="max-w-7xl mx-auto flex items-center gap-4 px-4 py-3">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-white hover:text-orange-400"
+            className="flex items-center gap-2 hover:text-orange-400"
           >
             <span className="text-xl">←</span>
             <span className="hidden sm:block">Back</span>
@@ -72,10 +72,10 @@ export const Homes = () => {
         </div>
       </div>
 
-      {/* ================= MAIN CONTENT ================= */}
+      {/* ================= CONTENT ================= */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 p-4 md:p-8">
 
-        {/* IMAGE SECTION */}
+        {/* IMAGE */}
         <div className="bg-white rounded p-4">
           <img
             src={mainImg}
@@ -97,7 +97,7 @@ export const Homes = () => {
           </div>
         </div>
 
-        {/* PRODUCT INFO */}
+        {/* INFO */}
         <div>
           <h1 className="text-2xl font-semibold">{product.title}</h1>
 
@@ -134,7 +134,7 @@ export const Homes = () => {
             Add to Cart
           </button>
 
-          {/* TRUST INFO */}
+          {/* TRUST */}
           <div className="mt-6 bg-gray-800 p-4 rounded">
             <p>✔ Free Delivery</p>
             <p>✔ 10 Days Return</p>
@@ -144,14 +144,17 @@ export const Homes = () => {
         </div>
       </div>
 
-      {/* ================= POPUP ================= */}
+      {/* ================= POPUP (FIXED) ================= */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            className="fixed top-0 left-1/2 -translate-x-1/2 bg-green-600 px-6 py-3 rounded-b-xl z-50"
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -80, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-[72px] left-1/2 -translate-x-1/2 
+                       bg-green-600 text-white px-6 py-3 rounded-md 
+                       z-[2000] shadow-lg"
           >
             🛒 Item added to cart!
           </motion.div>

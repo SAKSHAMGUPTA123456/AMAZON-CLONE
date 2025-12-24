@@ -1,17 +1,27 @@
 import k from './assest/images.png'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Loading from 'react-loading-components'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 export const First = () => {
   const [loaded, setLoaded] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true)
     }, 1000)
   }, [])
+
+  const handleStartShopping = () => {
+    const token = localStorage.getItem('token') // check JWT token
+    if (token) {
+      navigate('/main') // user logged in → go to main shopping page
+    } else {
+      navigate('/signup') // no token → redirect to signup
+    }
+  }
 
   if (!loaded) {
     return (
@@ -65,15 +75,14 @@ export const First = () => {
           Shop millions of products, great deals, and fast delivery – all in one place.
         </motion.p>
 
-        <NavLink to="/main">
-          <motion.button
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-10 py-3 rounded shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Start Shopping
-          </motion.button>
-        </NavLink>
+        <motion.button
+          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-10 py-3 rounded shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleStartShopping} // check token before navigating
+        >
+          Start Shopping
+        </motion.button>
 
       </div>
     </div>
