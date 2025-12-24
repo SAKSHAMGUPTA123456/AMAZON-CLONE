@@ -8,7 +8,7 @@ export const Signup = () => {
     const tokenId = credentialResponse.credential;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/google-signup", {
+      const res = await fetch("https://amazonss-clonesss-backend-flask.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id_token: tokenId }),
