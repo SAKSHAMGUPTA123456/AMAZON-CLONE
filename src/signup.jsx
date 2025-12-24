@@ -8,11 +8,16 @@ export const Signup = () => {
     const tokenId = credentialResponse.credential;
 
     try {
-      const res = await fetch("https://amazonss-clonesss-backend-flask.onrender.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_token: tokenId }),
-      });
+   const res = await fetch(
+  "https://amazonss-clonesss-backend-flask.onrender.com/google-signup",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id_token: tokenId }),
+    credentials: "include", // required for cookies/CORS
+  }
+);
+
 
       const data = await res.json();
 
