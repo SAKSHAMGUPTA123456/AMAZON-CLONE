@@ -12,13 +12,28 @@ import requests
 load_dotenv()
 MONGO_URI = os.environ.get("MONGO_URI")
 JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
-FRONTEND_URL = os.environ.get("FRONTEND_URL")
+FRONTEND_URL = os.environ.get("FRONTEND_URL")  # e.g., https://amazon-clones-rrdp.onrender.com
 
 # ---------------------------
 # Flask App & CORS Setup
 # ---------------------------
 app = Flask(__name__)
-CORS(app, origins=[FRONTEND_URL], supports_credentials=True)
+CORS(
+    app,
+    origins=[FRONTEND_URL],
+    supports_credentials=True,
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"]
+)
+
+# ---------------------------
+# Add COOP / COEP headers for Google Sign-In popup
+# ---------------------------
+@app.after_request
+def add_security_headers(response):
+    response.headers['Cross-Origin-Opener-Policy'] = 'same-origin-allow-popups'
+    response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
+    return response
 
 # ---------------------------
 # JWT Setup
@@ -33,11 +48,15 @@ client = MongoClient(MONGO_URI)
 db = client.amazon_clone
 users_collection = db.users
 
-# -------------------------------
+# ---------------------------
 # Google Sign-up / Sign-in
-# -------------------------------
-@app.route('/google-signup', methods=['POST'])
+# ---------------------------
+@app.route('/google-signup', methods=['POST', 'OPTIONS'])
 def google_signup():
+    # Handle preflight OPTIONS request
+    if request.method == "OPTIONS":
+        return '', 200
+
     data = request.json
     id_token = data.get('id_token')
 
@@ -78,5 +97,4 @@ def protected():
 
 
 if __name__ == '__main__':
-    # Run on 0.0.0.0 so Render can access it
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
