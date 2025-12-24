@@ -1,122 +1,174 @@
-import { useEffect, useState } from "react"
-import { useLoaderData, useNavigate, useParams } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Turkeybreast } from "./turkeybreatsapi";
-import { color } from "framer-motion";
-import StarRatings from 'react-star-ratings'
-import { useDispatch, useSelector } from "react-redux";
+import StarRatings from "react-star-ratings";
+import { useDispatch } from "react-redux";
 import { addTask } from "./Store";
-import { motion ,AnimatePresence} from "framer-motion";
-export const Displays=()=>{
-  const rts=useParams()
-  let navigate=useNavigate();
-  const arrt = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-    31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-    61, 62, 63, 64, 65, 66, 67, 68, 69, 70,
-    71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
-    81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
-    91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
-    const [selectold,selectnew]=useState(1)
-  const [newpop,oldpop]=useState(true)
-  const store=useSelector((state)=>state.task.task)
-const Dispatch=useDispatch()
-    const { data, isLoading, isError } = useQuery({
-        queryKey: ["turkey"],
-        queryFn: Turkeybreast, // Fetch full product list once
-        staleTime: Infinity, // Data stays cached indefinitely
-      });
-      const handleqw=(event)=>{
-console.log(event.target.value.slice(9,14)) 
-selectnew(parseInt(event.target.value.slice(9,14)))
-}
-      const rt=data?.filter((product)=>product.id==rts.id)
-      const handling = (curr) => {
-        oldpop(false); // Show the popup
-        const gy = {
-          image: curr.image,
-          actualprice: curr.price,
-          price:curr.price*selectold,
-          quantity: selectold,
-          id: curr.id,
-          details:curr.description,
+import { motion, AnimatePresence } from "framer-motion";
+import { Turkeybreast } from "./turkeybreatsapi";
 
-        };
-    
-     
-       
-        Dispatch(addTask(gy));
-      
-        // Hide the popup after 2 seconds
-        setTimeout(() => oldpop(true), 2000);
-      };
-console.log(store)
-    return(
-     <>
-     <div><br></br></div>
-     {rt?.map((curr)=>{
-        return(
-            <>
-            <div><button style={{color:"white",backgroundColor:"orange",borderRadius:"20px"}} onClick={()=>navigate(-1)}>Go to previous page</button></div>
-            <div class="flex justify-between">
-       <div> <h1 style={{color:"#1877F2"}}>Brand:{curr.title.slice(0,10)}</h1></div>
-    <div>    <StarRatings
-          rating={curr.rating.rate}
-          starRatedColor="orange"
-          numberOfStars={5}
-          name='rating'
-           starDimension="10px"
-        starSpacing="5px"
-        /></div>
-        </div>
-        <h2 style={{color:"white"}} class="mt-4">{curr.description}</h2>
-        <div class="flex justify-center mt-5"><img src={curr.image} style={{width:"350px"}}></img></div>
-        <div style={{color:"white",fontSize:"40px"}} class="ml-5">${curr.price}</div>
-        <h1 style={{color:"white"}} class="ml-5">EMI FROM $79.No Cost EMI available.</h1>
-        <h1 style={{color:"white"}} class="ml-5">Inclusive of all taxes</h1>
-        <div>
+export const Displays = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-          <select class="w-[400px] bg-gray-600 ml-2" style={{color:"white",borderRadius:"20px"}} onChange={(e)=>handleqw(e)}>
-           {arrt.map((curr)=>{
-            return(
-              <option style={{color:"white"}}>Quantity:{curr}</option>
-            )
-           })}
-          
-          </select>
-        </div>
+  const [qty, setQty] = useState(1);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const { data } = useQuery({
+    queryKey: ["turkey"],
+    queryFn: Turkeybreast,
+    staleTime: Infinity,
+  });
+
+  const product = data?.find((p) => p.id === Number(id));
+
+  if (!product) {
+    return (
+      <div className="pt-[72px] text-white p-10">
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-orange-400 text-black px-4 py-2 rounded"
+        >
+          ← Back
+        </button>
+        <p className="mt-6">Product not found</p>
+      </div>
+    );
+  }
+
+  const addToCart = () => {
+    dispatch(
+      addTask({
+        id: product.id,
+        image: product.image,
+        unitPrice: product.price,
+        quantity: qty,
+        price: product.price * qty,
+        details: product.description,
+      })
+    );
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2000);
+  };
+
+  return (
+    <div className="bg-[#EAEDED] min-h-screen pt-[72px] pb-24">
+      {/* Back button */}
+      <div className="max-w-7xl mx-auto px-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-sm text-blue-600 hover:underline mb-4"
+        >
+          ← Back to results
+        </button>
+      </div>
+
+      {/* Main layout */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 px-4">
         
-                <div class="mt-3"><button style={{backgroundColor:"orange",borderRadius:"30px",height:"70px"}} onClick={()=>handling(curr)} class="w-full">Add to cart</button></div>
-       <div class="mt-6 bg-gray-700" style={{height:"150px"}}>
-        <div style={{color:"white",fontStyle:"italic",fontSize:"20px"}}>Shop with Confidence</div>
-        <div style={{color:" #87CEEB"}} class="grid grid-cols-2">
-        <div class="mt-5">10 days Return & Exchange</div>
-        <div class="mt-5"> Free Delivery</div>
-        <div class="mt-10">Amazon Delivered</div>
-        <div class="mt-10">Secure transaction</div>
+        {/* Image Section */}
+        <div className="bg-white p-6 rounded">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-full h-[350px] object-contain"
+          />
         </div>
-       </div>
 
-        </>
-        )
-     })}
-<AnimatePresence>
-  {!newpop && (
-    <motion.div
-      key="popup"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 20, opacity: 1 }}
-      exit={{ y: -100, opacity: 0 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-b-xl shadow-lg z-[9999]"
-    >
-      🛒 Item added to cart!
-    </motion.div>
-  )}
-</AnimatePresence>
-     </>
-    )
-}
+        {/* Product Info */}
+        <div className="lg:col-span-1 bg-white p-6 rounded">
+          <h1 className="text-xl font-semibold">{product.title}</h1>
+
+          <div className="flex items-center gap-2 mt-2">
+            <StarRatings
+              rating={product.rating.rate}
+              starRatedColor="orange"
+              numberOfStars={5}
+              name="rating"
+              starDimension="16px"
+              starSpacing="2px"
+            />
+            <span className="text-sm text-blue-600">
+              {product.rating.count} ratings
+            </span>
+          </div>
+
+          <hr className="my-4" />
+
+          <p className="text-sm text-gray-700">{product.description}</p>
+
+          <div className="text-3xl text-red-600 mt-4">
+            ₹{product.price}
+          </div>
+
+          <p className="text-sm mt-2">
+            Inclusive of all taxes
+          </p>
+
+          <p className="text-sm mt-1">
+            EMI starts at ₹79. No Cost EMI available
+          </p>
+        </div>
+
+        {/* Buy Box (Amazon style) */}
+        <div className="bg-white p-6 rounded h-fit sticky top-[90px]">
+          <div className="text-2xl text-red-600 mb-2">
+            ₹{product.price}
+          </div>
+
+          <p className="text-sm mb-2">
+            FREE delivery <span className="font-semibold">Tomorrow</span>
+          </p>
+
+          <p className="text-green-700 font-semibold mb-4">
+            In stock
+          </p>
+
+          <select
+            value={qty}
+            onChange={(e) => setQty(Number(e.target.value))}
+            className="w-full border p-2 rounded mb-4"
+          >
+            {[...Array(10)].map((_, i) => (
+              <option key={i} value={i + 1}>
+                Quantity: {i + 1}
+              </option>
+            ))}
+          </select>
+
+          <button
+            onClick={addToCart}
+            className="w-full bg-yellow-400 hover:bg-yellow-500 py-3 rounded font-semibold mb-3"
+          >
+            Add to Cart
+          </button>
+
+          <button className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded font-semibold">
+            Buy Now
+          </button>
+
+          <div className="mt-6 text-sm space-y-2">
+            <p>✔ Secure transaction</p>
+            <p>✔ Amazon Delivered</p>
+            <p>✔ 10 days Return & Exchange</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Popup */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 20, opacity: 1 }}
+            exit={{ y: -100, opacity: 0 }}
+            className="fixed top-0 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-b-xl z-[9999]"
+          >
+            🛒 Item added to cart!
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};

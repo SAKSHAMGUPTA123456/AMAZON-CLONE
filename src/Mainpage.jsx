@@ -25,7 +25,7 @@ export const Main = () => {
       )}
 
       Main Content (disabled when sidebar is open) 
-   <main className="flex-1">
+   <main className="pt-[72px] bg-[#131921] min-h-screen">
         <Outlet />
       </main>
    

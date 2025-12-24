@@ -1,86 +1,117 @@
-import { useDispatch, useSelector } from "react-redux"
-import { NavLink, useNavigate } from "react-router-dom"
-import { addTask } from "./Store"
-import { decreaseTask } from "./Store"
-import { deleteitem } from "./Store"
-import { useState } from "react"
-export const Cart=()=>{
-  const cartFromRedux = useSelector((prev) => prev.task.task);
-  const cartFromLocal = JSON.parse(localStorage.getItem('cart') || "[]");
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addTask, decreaseTask, deleteitem } from "./Store";
+
+export const Cart = () => {
+  const cartFromRedux = useSelector((state) => state.task.task) || [];
+  const cartFromLocal = JSON.parse(localStorage.getItem("cart") || "[]");
   const fg = cartFromRedux.length ? cartFromRedux : cartFromLocal;
+
   const navigate = useNavigate();
-    const Dispatch=useDispatch()
-    const incre=(curr)=>{
-  
-      const er={
-        actualprice:curr.actualprice,
-        details:curr.details,
-id:curr.id,
-image:curr.image,
-price:(curr.price+curr.actualprice),
-quantity:curr.quantity+1
-}
-Dispatch(addTask(er))
-}
-const dec=(curr)=>{
-  if(curr.quantity==1){
-    Dispatch(deleteitem(curr))
-  }
-  if(curr.quantity>1){
-  const er={
-        actualprice:curr.actualprice,
-        details:curr.details,
-id:curr.id,
-image:curr.image,
-price:curr.price-curr.actualprice,
-quantity:curr.quantity-1
-  }
-      
-Dispatch(decreaseTask(er))
-}
-}
+  const dispatch = useDispatch();
 
-    
-    const handledel=(curr)=>{
-      if(curr.quantity>=1){
-        const er={
-          id:curr.id
-      
-        }
-        Dispatch(deleteitem(er))
+  const incre = (curr) => {
+    dispatch(
+      addTask({
+        ...curr,
+        quantity: curr.quantity + 1,
+        price: curr.unitPrice * (curr.quantity + 1),
+      })
+    );
+  };
+
+  const dec = (curr) => {
+    if (curr.quantity === 1) {
+      dispatch(deleteitem({ id: curr.id }));
+    } else {
+      dispatch(
+        decreaseTask({
+          ...curr,
+          quantity: curr.quantity - 1,
+          price: curr.unitPrice * (curr.quantity - 1),
+        })
+      );
     }
-  }
-  const handleprevious=()=>{
-    navigate(-1)
-  }
-    return(
-      <>
-<div><br></br></div>
-      <div class="flex justify-center"><h1 style={{color:"orange",fontSize:"30px"}}>YOUR CART HAS {fg.length} ITEMS</h1></div>
-      {fg?.map((curr)=>{
-        return(
-<>
-           <div class="flex justify-between mt-5 ml-3" onClick={handleprevious}>
-              <div><img src={curr.image} style={{width:"160px",height:"130px", boxShadow: "0 4px 12px rgba(255, 255, 255, 0.3)"}}></img></div>  
-                <div>
-                <div style={{color:"white",width:"250px",wordBreak:"break-word",fontStyle:"italic"}}>
-  {curr.details.slice(0,65)}.....
-</div>
-<div style={{color:"white",fontSize:"30px"}}>{parseFloat(curr.price).toFixed(3)}</div>
-<div style={{color:"lightgreen"}}>In Stock</div>
-</div>
-</div>
-<div class="flex">
-<button class="flex justify-between mt-3 " style={{border:"4px solid orange",width:"150px",borderRadius:"20px", backdropFilter: 'blur(10px)', backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
-    <div style={{color:"black",fontSize:"25px"}} class="ml-3" onClick={()=>dec(curr)}>-</div>     
-    <div style={{color:"white"}} class="mt-2">{curr.quantity}</div>
-    <div style={{color:"black",fontSize:"25px"}} onClick={()=>incre(curr)}>+</div>
-</button>
-<button class="flex justify-center mt-3 ml-3" style={{border:"4px solid orange",width:"150px",borderRadius:"20px", backdropFilter: 'blur(10px)', backgroundColor: 'rgba(255, 255, 255, 0.1)',color:"white"}} onClick={()=>handledel(curr)}>
-<div class="mt-2" onClick={handledel}>DELETE</div>
-</button>
-</div>
-</>
+  };
 
-        )})}
-        </>)}
+  return (
+    /* ✅ PAGE BACKGROUND */
+    <div className="min-h-screen bg-[#131921] pb-24">
+
+      {/* HEADER */}
+      <div className="text-center pt-6">
+        <h1 className="text-orange-400 text-2xl font-semibold">
+          YOUR CART HAS {fg.length} ITEMS
+        </h1>
+      </div>
+
+      {/* CART CONTAINER */}
+      <div className="max-w-4xl mx-auto mt-6">
+        {fg.map((curr) => (
+          <div key={curr.id} className="px-4 mb-6">
+
+            {/* ITEM CARD */}
+            <div className="flex gap-4 bg-[#1f2937] p-4 rounded-xl shadow-md">
+
+              <img
+                src={curr.image}
+                alt={curr.title}
+                className="w-28 h-24 md:w-36 md:h-28 object-contain bg-white rounded"
+              />
+
+              <div className="flex-1">
+                <p className="text-white italic line-clamp-2">
+                  {curr.title}
+                </p>
+
+                <p className="text-white text-xl mt-2">
+                  ₹{curr.price.toFixed(2)}
+                </p>
+
+                <p className="text-green-400 text-sm">In Stock</p>
+
+                {/* CONTROLS */}
+                <div className="flex items-center gap-3 mt-4 flex-wrap">
+                  <button
+                    onClick={() => dec(curr)}
+                    className="px-3 py-1 bg-orange-400 rounded text-black font-bold"
+                  >
+                    −
+                  </button>
+
+                  <span className="text-white font-semibold">
+                    {curr.quantity}
+                  </span>
+
+                  <button
+                    onClick={() => incre(curr)}
+                    className="px-3 py-1 bg-orange-400 rounded text-black font-bold"
+                  >
+                    +
+                  </button>
+
+                  <button
+                    onClick={() => dispatch(deleteitem({ id: curr.id }))}
+                    className="ml-auto px-4 py-1 border border-orange-400 text-orange-400 rounded hover:bg-orange-400 hover:text-black transition"
+                  >
+                    DELETE
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* FOOTER ACTION */}
+      <div className="text-center mt-8">
+        <button
+          onClick={() => navigate(-2)}
+          className="px-6 py-2 bg-orange-500 rounded font-bold text-black"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  );
+};
